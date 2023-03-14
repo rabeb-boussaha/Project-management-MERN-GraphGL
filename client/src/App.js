@@ -1,7 +1,9 @@
 import Hedaer from "./components/Hedaer";
 import { ApolloClient, InMemoryCache, ApolloProvider } from "@apollo/client";
-import Clients from "./components/Clinets";
-import AddClientModel from "./components/AddClientModel";
+import { BrowserRouter as Router, Route, Routes } from "react-router-dom";
+import Home from "./pages/Home";
+import NotFound from "./pages/NotFound";
+import Projects from "./pages/Projects";
 
 const cache = new InMemoryCache({
   typePolicies: {
@@ -31,11 +33,16 @@ function App() {
   return (
     <>
       <ApolloProvider client={client}>
-        <Hedaer />
-        <div className="container">
-          <AddClientModel />
-          <Clients />
-        </div>
+        <Router>
+          <Hedaer />
+          <div className="container">
+            <Routes>
+              <Route path="/" element={<Home />} />
+              <Route path="Projects/:id" element={<Projects />} />
+              <Route path="*" element={<NotFound />} />
+            </Routes>
+          </div>
+        </Router>
       </ApolloProvider>
     </>
   );
